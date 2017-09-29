@@ -1,10 +1,11 @@
 // Initial Setup
 const canvas = document.querySelector('canvas');
-const c = canvas.getContext('2d');
+const ctx = canvas.getContext('2d');
 
-canvas.width = innerWidth;
-canvas.height = innerHeight;
-
+const devicePixelRatio = window.devicePixelRatio
+canvas.width = innerWidth * devicePixelRatio;
+canvas.height = innerHeight * devicePixelRatio;
+ctx.scale(devicePixelRatio, devicePixelRatio)
 
 // Variables
 const mouse = {
@@ -56,11 +57,11 @@ function Object(x, y, radius, color) {
 	};
 
 	this.draw = () => {
-		c.beginPath();
-		c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);	
-		c.fillStyle = this.color;
-		c.fill();
-		c.closePath();
+		ctx.beginPath();
+		ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);	
+		ctx.fillStyle = this.color;
+		ctx.fill();
+		ctx.closePath();
 	};
 }
 
@@ -78,9 +79,9 @@ function init() {
 // Animation Loop
 function animate() {
 	requestAnimationFrame(animate);
-	c.clearRect(0, 0, canvas.width, canvas.height);
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-	c.fillText('HTML CANVAS BOILERPLATE', mouse.x, mouse.y);
+	ctx.fillText('HTML CANVAS BOILERPLATE', mouse.x, mouse.y);
 	// objects.forEach(object => {
 	// 	object.update();
 	// });

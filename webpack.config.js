@@ -1,10 +1,11 @@
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
     entry: './src/canvas.js',
     output: {
-        path: __dirname + '/dist/js',
-        filename: 'canvas.bundle.js'
+        path: __dirname + '/dist/',
+        filename: 'js/[name].js'
     },
     module: {
         loaders: [{
@@ -19,12 +20,17 @@ module.exports = {
         }]
     },
     plugins: [
+        new HtmlWebpackPlugin({
+            title: 'My App',
+            filename: 'index.html',
+            template: 'src/index.html'
+        }),
         new BrowserSyncPlugin({
             host: 'localhost',
             port: 3000,
             server: { baseDir: ['dist'] },
             files: ['./dist/*']
-        }),
+        })
     ],
     watch: true,
     devtool: 'source-map'
